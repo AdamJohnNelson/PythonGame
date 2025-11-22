@@ -13,7 +13,7 @@ def GenerateCirclePositions(amount):
         print(f"It is printing {i} times")
     
     
-
+#if you see this then it worked
 # pygame setup
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
