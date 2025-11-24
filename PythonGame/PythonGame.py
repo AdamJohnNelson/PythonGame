@@ -2,23 +2,26 @@
 import pygame
 import random
 
-def DrawCircles(surface):
-        xpos = random.randint(0, 1280)
-        ypos = random.randint(0, 720)
-        pygame.draw.circle(surface, "red", (xpos, ypos), 10, 0)
+def DrawCircles(Surface, CircleCenters):
+    for item in CircleCenters:
+        pygame.draw.circle(Surface, "red", (CircleCenters.x, CircleCenters.y), 10, 0)
 
-def GenerateCirclePositions(amount):
+def GenerateCirclePositions(Amount):
     PositionList = []
-    for i in range(0, amount):
-        print(f"It is printing {i} times")
-    
+    for i in range(0, Amount):
+        PositionList.append(pygame.Vector2(random.randint(0, 1280), random.randint(0,720)))
+
+    return PositionList
     
 #if you see this then it worked
 # pygame setup
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
-GenerateCirclePositions(10)
+Centers = GenerateCirclePositions(10)
+for i in range(0, len(Centers)):
+    print(f"X: {Centers[i].x} Y: {Centers[i].y}")
+
 #pygame.mouse.set_visible(False)
 running = True
 
@@ -39,7 +42,6 @@ while running:
 
     # flip() the display to put your work on screen
     pygame.display.flip()
-
     clock.tick(60)  # limits FPS to 60
 
 pygame.quit()
