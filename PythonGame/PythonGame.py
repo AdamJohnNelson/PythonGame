@@ -9,7 +9,7 @@ def DrawCircles(Surface, CircleCenters):
 def GenerateCirclePositions(Amount):
     PositionList = []
     for i in range(0, Amount):
-        PositionList.append(pygame.Vector2(random.randint(0, 1280), random.randint(0,720)))
+        PositionList.append(pygame.Vector3(random.randint(0, 1280), random.randint(0,720), random.randint(20,60)))
 
     return PositionList
     
@@ -35,6 +35,10 @@ while running:
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("purple")
     CursorPositionX, CursorPositionY = pygame.mouse.get_pos()
+    
+    for i in range(0, len(Centers)):
+        pygame.draw.circle(screen, "red", (Centers[i].x, Centers[i].y), Centers[i].z, 0)
+        
     pygame.draw.rect(screen, "white", (CursorPositionX - 10, CursorPositionY - 10, 20, 20))
 
 
