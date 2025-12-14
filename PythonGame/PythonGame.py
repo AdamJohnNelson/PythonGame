@@ -2,26 +2,35 @@
 import pygame
 import random
 
-def DrawCircles(Surface, CircleCenters):
-    for item in CircleCenters:
-        pygame.draw.circle(Surface, "red", (CircleCenters.x, CircleCenters.y), 10, 0)
+class Circles:
+    def __init__(self, Surface, Amount):
+        self.Surface = Surface
+        self.Amount = Amount
+        self.Centers = []
 
-def GenerateCirclePositions(Amount):
-    PositionList = []
-    for i in range(0, Amount):
-        PositionList.append(pygame.Vector3(random.randint(0, 1280), random.randint(0,720), random.randint(20,60)))
+    def DrawCircles(self):
+        for i in range(0, self.Amount):
+            pygame.draw.circle(self.Surface,
+                               "red",
+                               (self.Centers[i].x, self.Centers[i].y),
+                              self.Centers[i].z,
+                             0)
 
-    return PositionList
+    def GenerateCirclePositions(self):
+        for i in range(0, self.Amount):
+            self.Centers.append(pygame.Vector3(random.randint(0, 1280), random.randint(0,720), random.randint(20,60)))
+            print(f"This for loop has been run {i} times.")
+
     
 #if you see this then it worked
 # pygame setup
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
-Centers = GenerateCirclePositions(10)
-for i in range(0, len(Centers)):
-    print(f"X: {Centers[i].x} Y: {Centers[i].y}")
 
+CirclesInstance = Circles(screen, 10)
+CirclesInstance.GenerateCirclePositions()
+print(CirclesInstance.Centers)
 #pygame.mouse.set_visible(False)
 running = True
 
@@ -34,14 +43,11 @@ while running:
 
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("purple")
+
     CursorPositionX, CursorPositionY = pygame.mouse.get_pos()
-    
-    for i in range(0, len(Centers)):
-        pygame.draw.circle(screen, "red", (Centers[i].x, Centers[i].y), Centers[i].z, 0)
-        
     pygame.draw.rect(screen, "white", (CursorPositionX - 10, CursorPositionY - 10, 20, 20))
 
-
+    CirclesInstance.DrawCircles()
     # RENDER YOUR GAME HERE
 
     # flip() the display to put your work on screen
